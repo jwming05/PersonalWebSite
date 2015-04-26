@@ -7,6 +7,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "http://localhost:100
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		ProjectReferences = "{0e7aefb0-ff51-49d3-9f5b-a954b788f228}|Pers.Domain.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_10004"
 		Debug.AspNetCompiler.PhysicalPath = "Web\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_10004\"
@@ -24,13 +25,22 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "http://localhost:100
 		SlnRelativePath = "Web\"
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pers.Domain", "Pers.Domain\Pers.Domain.csproj", "{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{385905CA-7113-478F-8903-DE53BDCB4E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{385905CA-7113-478F-8903-DE53BDCB4E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{385905CA-7113-478F-8903-DE53BDCB4E25}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{385905CA-7113-478F-8903-DE53BDCB4E25}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

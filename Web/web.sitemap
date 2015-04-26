@@ -9,10 +9,14 @@
 			</siteMapNode>
 		</siteMapNode>
 		<siteMapNode title="Register" url="Register.aspx" />
-		<siteMapNode title="Manage" url="Admin/Albums.aspx" >
-			<siteMapNode title="Photos" url="Admin/Photos.aspx" >
-				<siteMapNode title="Details" url="Admin/Details.aspx" />
-			</siteMapNode>
-		</siteMapNode>
+    <siteMapNode title="Manage" url="Admin/Manage.aspx" >
+      <siteMapNode title="Albums" url="Admin/Albums.aspx" >
+        <siteMapNode title="Photos" url="Admin/Photos.aspx" >
+          <siteMapNode title="Details" url="Admin/Details.aspx" />
+        </siteMapNode>
+        <siteMapNode title="Site Content" url="Admin/Content.aspx" />
+        <siteMapNode title="Manage Users" url="Admin/Users.aspx" />
+      </siteMapNode>
+    </siteMapNode>
 	</siteMapNode>
 </siteMap>

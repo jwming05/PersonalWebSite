@@ -94,7 +94,7 @@
 
 	 </div>
 	
-	<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="PhotoManager" 
+	<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="Pers.Domain.PhotoManager" 
 		SelectMethod="GetPhotos"
 		InsertMethod="AddPhoto" 
 		DeleteMethod="RemovePhoto" 
@@ -107,7 +107,7 @@
 		</InsertParameters>
 	</asp:ObjectDataSource>
 	
-	<asp:ObjectDataSource ID="ObjectDataSource2" Runat="server" TypeName="PhotoManager" 
+	<asp:ObjectDataSource ID="ObjectDataSource2" Runat="server" TypeName="Pers.Domain.PhotoManager" 
 		SelectMethod="ListUploadDirectory" >
 	</asp:ObjectDataSource>
 	 

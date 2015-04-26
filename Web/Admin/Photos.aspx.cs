@@ -9,6 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Data;
 using System.Data.OleDb;
 using System.IO;
+using Pers.Domain;
 
 public partial class Admin_Photos_aspx : System.Web.UI.Page {
 

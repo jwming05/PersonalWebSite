@@ -16,6 +16,15 @@ CREATE TABLE [Photos] (
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
 
+CREATE TABLE [SiteContent]
+(
+	[TextId] int IDENTITY(1,1) NOT NULL,
+	[Homepage_Welcome]  varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL, 
+	[Homepage_WhatsNew]  varchar(MAX)  COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+	[Homepage_WhatsUpLately]  varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+) ON [PRIMARY]
+GO
+
 ALTER TABLE [Albums]
 	ADD CONSTRAINT [PK_Albums] PRIMARY KEY
 		CLUSTERED ([AlbumID])ON [PRIMARY]
@@ -33,6 +42,14 @@ ALTER TABLE [Photos]
 		ON UPDATE CASCADE
 GO
 
+ALTER TABLE [SiteContent]
+	ADD CONSTRAINT [PK_SiteContent] PRIMARY KEY
+		CLUSTERED ([TextId]) ON [PRIMARY]
+GO
+
+INSERT INTO [SiteContent]([Homepage_Welcome],[Homepage_WhatsNew],[Homepage_WhatsUpLately]) 
+VALUES('test', 'test', 'test')
+GO
 
 SET QUOTED_IDENTIFIER ON 
 GO

@@ -27,7 +27,7 @@
 				<img src="Handler.ashx?PhotoID=<%# Eval("PhotoID") %>" alt='Photo Number <%# Eval("PhotoID") %>' /></itemtemplate>
 		</asp:formview>
 
-		<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="PhotoManager" 
+		<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="Pers.Domain.PhotoManager" 
 			SelectMethod="GetPhotos">
 			<SelectParameters>
 				<asp:QueryStringParameter Name="AlbumID" Type="Int32" QueryStringField="AlbumID" DefaultValue="0"/>

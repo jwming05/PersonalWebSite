@@ -53,3 +53,7 @@ GO
 if exists (select * from dbo.sysobjects where id = object_id(N'[Photos]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 drop table [Photos]
 GO
+
+if exists (select * from dbo.sysobjects where id = object_id(N'[SiteContent]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+drop table [SiteContent]
+GO

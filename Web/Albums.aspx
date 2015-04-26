@@ -52,7 +52,7 @@
     
     </div>
 
-	<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="PhotoManager" 
+	<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="Pers.Domain.PhotoManager" 
 		SelectMethod="GetAlbums">
 	</asp:ObjectDataSource>
     

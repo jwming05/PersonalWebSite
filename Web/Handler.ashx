@@ -3,7 +3,7 @@
 using System;
 using System.IO;
 using System.Web;
-
+using Pers.Domain;
 public class Handler : IHttpHandler {
 
 	public bool IsReusable {

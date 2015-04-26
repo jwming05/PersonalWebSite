@@ -51,7 +51,7 @@
 		</asp:formview>
 	</div>
 	
-	<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="PhotoManager" 
+	<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="Pers.Domain.PhotoManager" 
 		SelectMethod="GetPhotos">
 		<SelectParameters>
 			<asp:QueryStringParameter Name="AlbumID" Type="Int32" QueryStringField="AlbumID" DefaultValue="0"/>
