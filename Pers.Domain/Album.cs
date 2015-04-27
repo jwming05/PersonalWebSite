@@ -1,6 +1,6 @@
 namespace Pers.Domain
 {
-    public class Album
+    public class Album : IAlbum
     {
 
         private int _id;

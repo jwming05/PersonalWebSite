@@ -13,312 +13,99 @@ namespace Pers.Domain
 {
     public class PhotoManager
     {
+        private static IPhotoManagementService GetService()
+        {
+            return (IPhotoManagementService)HttpContext.Current.Items["PhotoManagementService"];
+        }
 
         // Photo-Related Methods
 
-        public static Stream GetPhoto(int photoid, PhotoSize size)
+        public static Stream GetPhoto(int photoId, PhotoSize size)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("GetPhoto", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@PhotoID", photoid));
-                    command.Parameters.Add(new SqlParameter("@Size", (int)size));
-                    bool filter = !(HttpContext.Current.User.IsInRole("Friends") || HttpContext.Current.User.IsInRole("Administrators"));
-                    command.Parameters.Add(new SqlParameter("@IsPublic", filter));
-                    connection.Open();
-                    object result = command.ExecuteScalar();
-                    try
-                    {
-                        return new MemoryStream((byte[])result);
-                    }
-                    catch
-                    {
-                        return null;
-                    }
-                }
-            }
+            var service = GetService();
+            return service.GetPhoto(photoId, size);
         }
 
         public static Stream GetPhoto(PhotoSize size)
         {
-            string path = HttpContext.Current.Server.MapPath("~/Images/");
-            switch (size)
-            {
-                case PhotoSize.Small:
-                    path += "placeholder-100.jpg";
-                    break;
-                case PhotoSize.Medium:
-                    path += "placeholder-200.jpg";
-                    break;
-                case PhotoSize.Large:
-                    path += "placeholder-600.jpg";
-                    break;
-                default:
-                    path += "placeholder-600.jpg";
-                    break;
-            }
-            return new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            var service = GetService();
+            return service.GetPhoto(size);
         }
 
-        public static Stream GetFirstPhoto(int albumid, PhotoSize size)
+        public static Stream GetFirstPhoto(int albumId, PhotoSize size)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("GetFirstPhoto", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@AlbumID", albumid));
-                    command.Parameters.Add(new SqlParameter("@Size", (int)size));
-                    bool filter = !(HttpContext.Current.User.IsInRole("Friends") || HttpContext.Current.User.IsInRole("Administrators"));
-                    command.Parameters.Add(new SqlParameter("@IsPublic", filter));
-                    connection.Open();
-                    object result = command.ExecuteScalar();
-                    try
-                    {
-                        return new MemoryStream((byte[])result);
-                    }
-                    catch
-                    {
-                        return null;
-                    }
-                }
-            }
+            var service = GetService();
+            return service.GetFirstPhoto(albumId,size);
         }
 
-        public static List<Photo> GetPhotos(int AlbumID)
+        public static IList<IPhoto> GetPhotos(int albumId)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("GetPhotos", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@AlbumID", AlbumID));
-                    bool filter = !(HttpContext.Current.User.IsInRole("Friends") || HttpContext.Current.User.IsInRole("Administrators"));
-                    command.Parameters.Add(new SqlParameter("@IsPublic", filter));
-                    connection.Open();
-                    List<Photo> list = new List<Photo>();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Photo temp = new Photo(
-                                (int)reader["PhotoID"],
-                                (int)reader["AlbumID"],
-                                (string)reader["Caption"]);
-                            list.Add(temp);
-                        }
-                    }
-                    return list;
-                }
-            }
-
-
+            var service = GetService();
+            return service.GetPhotos(albumId);
         }
 
-        public static List<Photo> GetPhotos()
+        public static IList<IPhoto> GetPhotos()
         {
-            return GetPhotos(GetRandomAlbumID());
+            var service = GetService();
+            return GetPhotos(service.GetRandomAlbumID());
         }
 
-        public static void AddPhoto(int AlbumID, string Caption, byte[] BytesOriginal)
+        public static void AddPhoto(int albumId, string caption, byte[] bytesOriginal)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("AddPhoto", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@AlbumID", AlbumID));
-                    command.Parameters.Add(new SqlParameter("@Caption", Caption));
-                    command.Parameters.Add(new SqlParameter("@BytesOriginal", BytesOriginal));
-                    command.Parameters.Add(new SqlParameter("@BytesFull", ResizeImageFile(BytesOriginal, 600)));
-                    command.Parameters.Add(new SqlParameter("@BytesPoster", ResizeImageFile(BytesOriginal, 198)));
-                    command.Parameters.Add(new SqlParameter("@BytesThumb", ResizeImageFile(BytesOriginal, 100)));
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
+            var service = GetService();
+            service.AddPhoto(albumId, caption, bytesOriginal);
         }
 
-        public static void RemovePhoto(int PhotoID)
+        public static void RemovePhoto(int photoId)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("RemovePhoto", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@PhotoID", PhotoID));
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
+            var service = GetService();
+            service.RemovePhoto(photoId);
         }
 
-        public static void EditPhoto(string Caption, int PhotoID)
+        public static void EditPhoto(string caption, int photoId)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("EditPhoto", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@Caption", Caption));
-                    command.Parameters.Add(new SqlParameter("@PhotoID", PhotoID));
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
+            var service = GetService();
+            service.EditPhoto(caption,photoId);
         }
 
         // Album-Related Methods
 
-        public static List<Album> GetAlbums()
+        public static IList<IAlbum> GetAlbums()
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("GetAlbums", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    bool filter = !(HttpContext.Current.User.IsInRole("Friends") || HttpContext.Current.User.IsInRole("Administrators"));
-                    command.Parameters.Add(new SqlParameter("@IsPublic", filter));
-                    connection.Open();
-                    List<Album> list = new List<Album>();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Album temp = new Album(
-                                (int)reader["AlbumID"],
-                                (int)reader["NumberOfPhotos"],
-                                (string)reader["Caption"],
-                                (bool)reader["IsPublic"]);
-                            list.Add(temp);
-                        }
-                    }
-                    return list;
-                }
-            }
+            var service = GetService();
+            return service.GetAlbums();
         }
 
-        public static void AddAlbum(string Caption, bool IsPublic)
+        public static void AddAlbum(string caption, bool isPublic)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("AddAlbum", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@Caption", Caption));
-                    command.Parameters.Add(new SqlParameter("@IsPublic", IsPublic));
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
+            var service = GetService();
+            service.AddAlbum(caption,isPublic);
         }
 
-        public static void RemoveAlbum(int AlbumID)
+        public static void RemoveAlbum(int albumId)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("RemoveAlbum", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@AlbumID", AlbumID));
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
+            var service = GetService();
+            service.RemoveAlbum(albumId);
         }
 
-        public static void EditAlbum(string Caption, bool IsPublic, int AlbumID)
+        public static void EditAlbum(string caption, bool isPublic, int albumId)
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("EditAlbum", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add(new SqlParameter("@Caption", Caption));
-                    command.Parameters.Add(new SqlParameter("@IsPublic", IsPublic));
-                    command.Parameters.Add(new SqlParameter("@AlbumID", AlbumID));
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
+            var service = GetService();
+            service.EditAlbum(caption,isPublic,albumId);
         }
 
         public static int GetRandomAlbumID()
         {
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["Personal"].ConnectionString))
-            {
-                using (SqlCommand command = new SqlCommand("GetNonEmptyAlbums", connection))
-                {
-                    command.CommandType = CommandType.StoredProcedure;
-                    connection.Open();
-                    List<Album> list = new List<Album>();
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Album temp = new Album((int)reader["AlbumID"], 0, "", false);
-                            list.Add(temp);
-                        }
-                    }
-                    try
-                    {
-                        Random r = new Random();
-                        return list[r.Next(list.Count)].AlbumID;
-                    }
-                    catch
-                    {
-                        return -1;
-                    }
-                }
-            }
+            var service = GetService();
+            return service.GetRandomAlbumID();
         }
 
         // Helper Functions
-
-        private static byte[] ResizeImageFile(byte[] imageFile, int targetSize)
-        {
-            using (System.Drawing.Image oldImage = System.Drawing.Image.FromStream(new MemoryStream(imageFile)))
-            {
-                Size newSize = CalculateDimensions(oldImage.Size, targetSize);
-                using (Bitmap newImage = new Bitmap(newSize.Width, newSize.Height, PixelFormat.Format24bppRgb))
-                {
-                    using (Graphics canvas = Graphics.FromImage(newImage))
-                    {
-                        canvas.SmoothingMode = SmoothingMode.AntiAlias;
-                        canvas.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                        canvas.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                        canvas.DrawImage(oldImage, new Rectangle(new Point(0, 0), newSize));
-                        MemoryStream m = new MemoryStream();
-                        newImage.Save(m, ImageFormat.Jpeg);
-                        return m.GetBuffer();
-                    }
-                }
-            }
-        }
-
-        private static Size CalculateDimensions(Size oldSize, int targetSize)
-        {
-            Size newSize = new Size();
-            if (oldSize.Height > oldSize.Width)
-            {
-                newSize.Width = (int)(oldSize.Width * ((float)targetSize / (float)oldSize.Height));
-                newSize.Height = targetSize;
-            }
-            else
-            {
-                newSize.Width = targetSize;
-                newSize.Height = (int)(oldSize.Height * ((float)targetSize / (float)oldSize.Width));
-            }
-            return newSize;
-        }
 
         public static ICollection ListUploadDirectory()
         {
             DirectoryInfo d = new DirectoryInfo(System.Web.HttpContext.Current.Server.MapPath("~/Upload"));
             return d.GetFileSystemInfos("*.jpg");
         }
-
     }
 }

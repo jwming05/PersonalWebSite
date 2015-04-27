@@ -20,7 +20,7 @@ CREATE TABLE [SiteContent]
 (
 	[TextId] int IDENTITY(1,1) NOT NULL,
 	[Homepage_Welcome]  varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL, 
-	[Homepage_WhatsNew]  varchar(MAX)  COLLATE SQL_Latin1_General_CP1_CI_AS NULL
+	[Homepage_WhatsNew]  varchar(MAX)  COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Homepage_WhatsUpLately]  varchar(MAX) COLLATE SQL_Latin1_General_CP1_CI_AS NULL
 ) ON [PRIMARY]
 GO

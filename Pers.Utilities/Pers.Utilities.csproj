@@ -1,14 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}</ProjectGuid>
+    <ProjectGuid>{66C89EEB-8066-4435-A7D3-0D8EF27B8728}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Pers.Domain</RootNamespace>
-    <AssemblyName>Pers.Domain</AssemblyName>
+    <RootNamespace>Pers.Utilities</RootNamespace>
+    <AssemblyName>Pers.Utilities</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,10 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,31 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Album.cs" />
-    <Compile Include="Abstract\IAlbumFilter.cs" />
-    <Compile Include="Abstract\IDefaultImageProvider.cs" />
-    <Compile Include="Abstract\IImageResizer.cs" />
-    <Compile Include="Abstract\IPhotoManagementService.cs" />
-    <Compile Include="AlbumFilter.cs" />
-    <Compile Include="DefaultImageProvider.cs" />
-    <Compile Include="ImageResizer.cs" />
-    <Compile Include="Abstract\IAlbum.cs" />
-    <Compile Include="Abstract\IPhoto.cs" />
-    <Compile Include="Abstract\IPhotoManagementRepository.cs" />
-    <Compile Include="Abstract\ISiteContent.cs" />
-    <Compile Include="Abstract\ISiteContentManagementRepository.cs" />
-    <Compile Include="Abstract\ISiteContentManagementService.cs" />
-    <Compile Include="Photo.cs" />
-    <Compile Include="PhotoManager.cs" />
-    <Compile Include="PhotoSize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PhotoManagementService.cs" />
-    <Compile Include="SiteContent.cs" />
-    <Compile Include="SiteContentManagementService.cs" />
-    <Compile Include="SiteContentManager.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utils\" />
+    <Compile Include="SqlDBUtils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

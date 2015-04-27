@@ -1,8 +1,7 @@
 namespace Pers.Domain
 {
-    public class Photo
+    public class Photo : IPhoto
     {
-
         private int _id;
         private int _albumid;
         private string _caption;
@@ -17,6 +16,5 @@ namespace Pers.Domain
             _albumid = albumid;
             _caption = caption;
         }
-
     }
 }

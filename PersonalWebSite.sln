@@ -1,13 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "http://localhost:10004", "{385905CA-7113-478F-8903-DE53BDCB4E25}"
 	ProjectSection(WebsiteProperties) = preProject
 		UseIISExpress = "true"
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
-		ProjectReferences = "{0e7aefb0-ff51-49d3-9f5b-a954b788f228}|Pers.Domain.dll;"
+		ProjectReferences = "{0e7aefb0-ff51-49d3-9f5b-a954b788f228}|Pers.Domain.dll;{74b3a4ed-9c55-4b8b-b6cc-98637d81679d}|Pers.DAL.dll;{66c89eeb-8066-4435-a7d3-0d8ef27b8728}|Pers.Utilities.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_10004"
 		Debug.AspNetCompiler.PhysicalPath = "Web\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_10004\"
@@ -27,6 +25,10 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Web", "http://localhost:100
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pers.Domain", "Pers.Domain\Pers.Domain.csproj", "{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pers.DAL", "Pers.DAL\Pers.DAL.csproj", "{74B3A4ED-9C55-4B8B-B6CC-98637D81679D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pers.Utilities", "Pers.Utilities\Pers.Utilities.csproj", "{66C89EEB-8066-4435-A7D3-0D8EF27B8728}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,14 @@ Global
 		{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E7AEFB0-FF51-49D3-9F5B-A954B788F228}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74B3A4ED-9C55-4B8B-B6CC-98637D81679D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74B3A4ED-9C55-4B8B-B6CC-98637D81679D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74B3A4ED-9C55-4B8B-B6CC-98637D81679D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74B3A4ED-9C55-4B8B-B6CC-98637D81679D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66C89EEB-8066-4435-A7D3-0D8EF27B8728}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C89EEB-8066-4435-A7D3-0D8EF27B8728}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C89EEB-8066-4435-A7D3-0D8EF27B8728}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C89EEB-8066-4435-A7D3-0D8EF27B8728}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
