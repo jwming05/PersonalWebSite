@@ -13,11 +13,13 @@ namespace Pers.Domain
         Stream GetFirstPhoto(int albumId, PhotoSize size);
         Stream GetPhoto(PhotoSize size);
         Stream GetPhoto(int photoId, PhotoSize size);
-        IList<IPhoto> GetPhotos();
+        //IList<IPhoto> GetPhotos();
         IList<IPhoto> GetPhotos(int albumID);
-        int GetRandomAlbumID();
+        //int GetRandomAlbumID();
         void RemoveAlbum(int albumId);
         void RemovePhoto(int photoId);
+
+        IList<IPhoto> GetRandomPhotos();
     }
 
 

@@ -72,7 +72,7 @@
             <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut	laoreet	dolore magna aliquam erat volutpat.</p>
         </div>
         <div id="content">
-            <asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1">
+            <%--<asp:DataList ID="DataList1" runat="server" DataSourceID="SqlDataSource1">
                 <ItemTemplate>
                     <h3>Welcome to My Site</h3>
                     <p><%# Eval("Homepage_Welcome")%></p>
@@ -95,14 +95,44 @@
                     <h4>What's Up Lately </h4>
                     <p><%# Eval("Homepage_WhatsUpLately") %></p>
                 </ItemTemplate>
+            </asp:DataList>--%>
+
+            <asp:DataList ID="DataList1" runat="server" DataSourceID="ObjectDataSource2">
+                <ItemTemplate>
+                    <h3>Welcome to My Site</h3>
+                    <p><%# Eval("HomepageWelcome")%></p>
+                    <hr />
+                    <div id="whatsnew">
+                        <h4>What's New</h4>
+                        <p><%# Eval("HomepageWhatsNew") %></p>
+                    </div>
+                    <div id="coollinks">
+                        <h4>Cool Links</h4>
+                        <ul class="link">
+                            <li><a href="#">Lorem ipsum dolositionr</a></li>
+                            <li><a href="#">Lorem ipsum dolositionr</a></li>
+                            <li><a href="#">Lorem ipsum dolositionr</a></li>
+                            <li><a href="#">Lorem ipsum dolositionr</a></li>
+                            <li><a href="#">Lorem ipsum dolositionr</a></li>
+                        </ul>
+                    </div>
+                    <hr />
+                    <h4>What's Up Lately </h4>
+                    <p><%# Eval("HomepageWhatsUpLately") %></p>
+                </ItemTemplate>
             </asp:DataList>
         </div>
     </div>
 
-	<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="Pers.Domain.PhotoManager" 
+	<%--<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="Pers.Domain.PhotoManager" 
 		SelectMethod="GetPhotos">
-	</asp:ObjectDataSource>
+	</asp:ObjectDataSource>--%>
 
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Personal %>" SelectCommand="SELECT * FROM [SiteContent]"></asp:SqlDataSource>
+    <asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="Pers.Domain.PhotoManager" 
+		SelectMethod="GetRandomPhotos">
+	</asp:ObjectDataSource>
+<%--    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:Personal %>" SelectCommand="SELECT * FROM [SiteContent]"></asp:SqlDataSource>--%>
+
+    <asp:ObjectDataSource ID="ObjectDataSource2" runat="server" SelectMethod="GetSiteContent" TypeName="Pers.Domain.SiteContentManager"></asp:ObjectDataSource>
 
 </asp:content>

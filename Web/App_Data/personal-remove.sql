@@ -46,6 +46,10 @@ if exists (select * from dbo.sysobjects where id = object_id(N'[RemovePhoto]') a
 drop procedure [RemovePhoto]
 GO
 
+if exists (select * from dbo.sysobjects where id = object_id(N'[GetRandomPhotos]') and OBJECTPROPERTY(id, N'IsProcedure') = 1)
+drop procedure [GetRandomPhotos]
+GO
+
 if exists (select * from dbo.sysobjects where id = object_id(N'[Albums]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 drop table [Albums]
 GO

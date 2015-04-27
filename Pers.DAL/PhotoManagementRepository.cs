@@ -30,6 +30,15 @@ namespace Pers.DAL
             return result as byte[];
         }
 
+        public IList<IPhoto> GetRandomPhotos()
+        {
+            string cmdText = "GetRandomPhotos";
+            return ExecuteReader<IPhoto>(
+                cmdText,
+                CommandType.StoredProcedure,
+                (r) => CreatePhoto((int)r["PhotoID"], (int)r["AlbumID"], (string)r["Caption"]));
+        }
+
         public byte[] GetFirstPhoto(int albumId, PhotoSize size, bool isPublic)
         {
             string cmdText = "GetFirstPhoto";
@@ -135,14 +144,14 @@ namespace Pers.DAL
                 new SqlParameter("@AlbumID", albumID));
         }
 
-        public IList<IAlbum> GetNonEmptyAlbums()
-        {
-            string cmdText = "GetNonEmptyAlbums";
-            return ExecuteReader<IAlbum>(
-                cmdText,
-                CommandType.StoredProcedure,
-                (r) => CreateAlbum((int)r["AlbumID"], 0, "", false));
-        }
+        //public IList<IAlbum> GetNonEmptyAlbums()
+        //{
+        //    string cmdText = "GetNonEmptyAlbums";
+        //    return ExecuteReader<IAlbum>(
+        //        cmdText,
+        //        CommandType.StoredProcedure,
+        //        (r) => CreateAlbum((int)r["AlbumID"], 0, "", false));
+        //}
         #endregion
 
         private object ExecuteScalar(string cmdText, CommandType commandType, params SqlParameter[] sqlParameters)

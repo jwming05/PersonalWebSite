@@ -30,6 +30,11 @@ namespace Pers.Domain
             return bytes != null ? new MemoryStream(bytes) : null;
         }
 
+        public IList<IPhoto> GetRandomPhotos()
+        {
+            return _repository.GetRandomPhotos();
+        }
+
         public Stream GetPhoto(PhotoSize size)
         {
             return _defaultImageProvider.GetPhoto(size);
@@ -46,10 +51,10 @@ namespace Pers.Domain
             return _repository.GetPhotos(albumID, _albumFilter.IsPublic);
         }
 
-        public IList<IPhoto> GetPhotos()
-        {
-            return GetPhotos(GetRandomAlbumID());
-        }
+        //public IList<IPhoto> GetPhotos()
+        //{
+        //    return GetPhotos(GetRandomAlbumID());
+        //}
 
         public void AddPhoto(int albumID, string caption, byte[] bytesOriginal)
         {
@@ -92,20 +97,20 @@ namespace Pers.Domain
             _repository.EditAlbum(caption, isPublic, albumId);
         }
 
-        public int GetRandomAlbumID()
-        {
-            IList<IAlbum> albums = _repository.GetNonEmptyAlbums();
+        //public int GetRandomAlbumID()
+        //{
+        //    IList<IAlbum> albums = _repository.GetNonEmptyAlbums();
 
-            if (albums.Count > 0)
-            {
-                Random r = new Random();
-                return albums[r.Next(albums.Count)].AlbumID;
-            }
-            else
-            {
-                return -1;
-            }
-        }
+        //    if (albums.Count > 0)
+        //    {
+        //        Random r = new Random();
+        //        return albums[r.Next(albums.Count)].AlbumID;
+        //    }
+        //    else
+        //    {
+        //        return -1;
+        //    }
+        //}
         #endregion
 
         // Helper Functions
@@ -115,6 +120,5 @@ namespace Pers.Domain
         //    DirectoryInfo d = new DirectoryInfo(System.Web.HttpContext.Current.Server.MapPath("~/Upload"));
         //    return d.GetFileSystemInfos("*.jpg");
         //}
-
     }
 }
