@@ -213,12 +213,75 @@ AS
 RETURN
 GO
 
-CREATE PROCEDURE [dbo].[GetRandomPhotos]
+CREATE PROCEDURE [GetRandomPhotos]
 AS
 	SELECT TOP 1 [Photos].[PhotoID], [Photos].[AlbumID], [Photos].[Caption]
 	FROM [Photos] LEFT JOIN [Albums] 
 	ON [Photos].[AlbumID]=[Albums].[AlbumID]
 	WHERE [Albums].[IsPublic]=1 ORDER BY NEWID()
+RETURN
+GO
+
+CREATE PROCEDURE [CountAlbums]
+@IsPublic bit
+AS
+SELECT COUNT([AlbumID]) FROM [Albums] WHERE [IsPublic]=1 OR [IsPublic]=@IsPublic
+RETURN
+GO
+
+CREATE PROCEDURE [GetAlbums2]
+@RowIndex int,
+@RowCount int,
+@IsPublic bit
+AS
+SELECT [AlbumID], [Caption], [IsPublic],[NumberOfPhotos]
+FROM 
+(
+	SELECT 
+		[Albums].[AlbumID], 
+		[Albums].[Caption], 
+		[Albums].[IsPublic], 
+		Count([Photos].[PhotoID]) AS NumberOfPhotos,
+		ROW_NUMBER() OVER(ORDER BY [Albums].[AlbumID]) AS [RowIndex]
+	FROM [Albums] LEFT JOIN [Photos] 
+	ON [Albums].[AlbumID] = [Photos].[AlbumID] 
+	WHERE [Albums].[IsPublic] = 1 OR [Albums].[IsPublic] = @IsPublic
+	GROUP BY [Albums].[AlbumID], [Albums].[Caption], [Albums].[IsPublic]
+) 
+AS [temp]
+WHERE [RowIndex] BETWEEN @RowIndex AND @RowIndex+@RowCount-1
+GO
+
+CREATE PROCEDURE [GetPhotos2]
+	@RowIndex int,
+	@RowCount int,
+	@AlbumID int,
+	@IsPublic bit
+AS
+SELECT [AlbumID], [Caption], [PhotoID]
+FROM 
+(
+	SELECT [Photos].[AlbumID], [Photos].[Caption], [Photos].[PhotoID],
+		ROW_NUMBER() OVER(ORDER BY [Photos].[PhotoID]) as [RowIndex]
+	FROM [Photos] LEFT JOIN [Albums]
+	ON [Albums].[AlbumID] = [Photos].[AlbumID] 
+	WHERE [Photos].[AlbumID] = @AlbumID
+		AND ([Albums].[IsPublic] = @IsPublic OR [Albums].[IsPublic] = 1)
+)
+AS [temp]
+WHERE [RowIndex] BETWEEN @RowIndex AND @RowIndex+@RowCount-1
+RETURN
+GO
+
+CREATE PROCEDURE [CountPhotos]
+	@AlbumID int,
+	@IsPublic bit
+AS
+SELECT COUNT([Photos].[PhotoID])
+FROM [Photos] LEFT JOIN [Albums]
+ON [Albums].[AlbumID] = [Photos].[AlbumID] 
+WHERE [Photos].[AlbumID] = @AlbumID
+	AND ([Albums].[IsPublic] = @IsPublic OR [Albums].[IsPublic] = 1)
 RETURN
 GO
 

@@ -49,7 +49,6 @@
 				<%# Eval("Count") %> Photo(s)
             </ItemTemplate>
         </asp:DataList>
-    
     </div>
 
 	<asp:ObjectDataSource ID="ObjectDataSource1" Runat="server" TypeName="Pers.Domain.PhotoManager" 

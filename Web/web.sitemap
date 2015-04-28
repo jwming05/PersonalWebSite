@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<siteMap>
-	<siteMapNode title="Home" url="Default.aspx">
-		<siteMapNode title="Resume" url="Resume.aspx" />
-		<siteMapNode title="Links" url="Links.aspx" />
-		<siteMapNode title="Albums" url="Albums.aspx" >
-			<siteMapNode title="Photos" url="Photos.aspx" >
-				<siteMapNode title="Details" url="Details.aspx" />
+<siteMap enableLocalization="true">
+	<siteMapNode url="Default.aspx" resourceKey="Home">
+		<siteMapNode url="Resume.aspx" resourceKey="Resume" />
+		<siteMapNode url="Links.aspx" resourceKey="Links" />
+		<siteMapNode url="Albums.aspx" resourceKey="Albums">
+			<siteMapNode url="Photos.aspx" resourceKey="Photos">
+				<siteMapNode resourceKey="Details" url="Details.aspx" />
 			</siteMapNode>
 		</siteMapNode>
-		<siteMapNode title="Register" url="Register.aspx" />
-    <siteMapNode title="Manage" url="Admin/Manage.aspx" >
-      <siteMapNode title="Albums" url="Admin/Albums.aspx" >
-        <siteMapNode title="Photos" url="Admin/Photos.aspx" >
-          <siteMapNode title="Details" url="Admin/Details.aspx" />
+		<siteMapNode resourceKey="Register" url="Register.aspx" />
+    <siteMapNode resourceKey="Manage" url="Admin/Manage.aspx" >
+      <siteMapNode resourceKey="Albums" url="Admin/Albums.aspx" >
+        <siteMapNode resourceKey="Photos" url="Admin/Photos.aspx" >
+          <siteMapNode resourceKey="Details" url="Admin/Details.aspx" />
         </siteMapNode>
-        <siteMapNode title="Site Content" url="Admin/Content.aspx" />
-        <siteMapNode title="Manage Users" url="Admin/Users.aspx" />
+        <siteMapNode resourceKey="SiteContent" url="Admin/Content.aspx" />
+        <siteMapNode resourceKey="ManageUsers" url="Admin/Users.aspx" />
       </siteMapNode>
     </siteMapNode>
 	</siteMapNode>

@@ -43,10 +43,22 @@ namespace Pers.Domain
         //    return GetPhotos(service.GetRandomAlbumID());
         //}
 
+        public static IList<IPhoto> GetPhotos(int pageIndex, int rowCountOfPage, int albumID)
+        {
+            var service = GetService();
+            return service.GetPhotos(pageIndex, rowCountOfPage, albumID);
+        }
+
+        public static int CountPhotos(int albumID)
+        {
+            var service = GetService();
+            return service.CountPhotos(albumID);
+        }
+
         public static IList<IPhoto> GetRandomPhotos()
         {
             var service = GetService();
-            return service.GetRandomPhotos(); // GetPhotos(service.GetRandomAlbumID());
+            return service.GetRandomPhotos();
         }
 
         public static void AddPhoto(int albumId, string caption, byte[] bytesOriginal)
@@ -75,6 +87,18 @@ namespace Pers.Domain
             return service.GetAlbums();
         }
 
+        public static IList<IAlbum> GetAlbums(int pageIndex, int rowCountOfPage)
+        {
+            var service = GetService();
+            return service.GetAlbums(pageIndex, rowCountOfPage);
+        }
+
+        public static int CountAlbums()
+        {
+            var service = GetService();
+            return service.CountAlbums();
+        }
+
         public static void AddAlbum(string caption, bool isPublic)
         {
             var service = GetService();
@@ -101,10 +125,16 @@ namespace Pers.Domain
 
         // Helper Functions
 
-        public static ICollection ListUploadDirectory()
+        private static IUploadDirectorySearcher GetSearcher()
         {
-            DirectoryInfo d = new DirectoryInfo(System.Web.HttpContext.Current.Server.MapPath("~/Upload"));
-            return d.GetFileSystemInfos("*.jpg");
+            return (IUploadDirectorySearcher)HttpContext.Current.Items["UploadDirectorySearcher"];
+        }
+
+        public static IEnumerable<FileInfo> ListUploadDirectory()
+        {
+            return GetSearcher().GetFiles();
+            //DirectoryInfo d = new DirectoryInfo(System.Web.HttpContext.Current.Server.MapPath("~/Upload"));
+            //return d.GetFileSystemInfos("*.jpg");
         }
     }
 }

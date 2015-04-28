@@ -18,6 +18,11 @@ namespace Pers.Domain
         void RemovePhoto(int photoID);
 
         IList<IPhoto> GetRandomPhotos();
+
+        IList<IAlbum> GetAlbums(int rowIndex, int rowCount, bool isPublic);
+        int CountAlbums(bool isPublic);
+        IList<IPhoto> GetPhotos(int rowIndex, int rowCount, int albumID, bool isPublic);
+        int CountPhotos(int albumID, bool isPublic);
     }
 
     //public interface IAlbumRepository

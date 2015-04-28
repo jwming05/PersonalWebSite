@@ -63,6 +63,29 @@ namespace Pers.DAL
                 new SqlParameter("@IsPublic", isPublic));
         }
 
+        public IList<IPhoto> GetPhotos(int rowIndex, int rowCount, int albumID, bool isPublic)
+        {
+            string cmdText = "GetPhotos2";
+            return ExecuteReader<IPhoto>(
+                cmdText,
+                CommandType.StoredProcedure,
+                (r) => CreatePhoto((int)r["PhotoID"], (int)r["AlbumID"], (string)r["Caption"]),
+                new SqlParameter("@AlbumID", albumID),
+                new SqlParameter("@IsPublic", isPublic),
+                new SqlParameter("@RowIndex", rowIndex),
+                new SqlParameter("@RowCount", rowCount));
+        }
+
+        public int CountPhotos(int albumID, bool isPublic)
+        {
+            string cmdText = "CountPhotos";
+            return (int)this.ExecuteScalar(
+                cmdText,
+                CommandType.StoredProcedure,
+                new SqlParameter("@AlbumID", albumID),
+                new SqlParameter("@IsPublic", isPublic));
+        }
+
         public void AddPhoto(int albumID, string caption, byte[] bytesOriginal, byte[] bytesFull, byte[] bytesPoster, byte[] bytesThumb)
         {
             string cmdText = "AddPhoto";
@@ -112,7 +135,27 @@ namespace Pers.DAL
                 new SqlParameter("@IsPublic", isPublic));
         }
 
-        
+        public IList<IAlbum> GetAlbums(int rowIndex, int rowCount, bool isPublic)
+        {
+            string cmdText = "GetAlbums2";
+            return ExecuteReader<IAlbum>(
+                cmdText,
+                CommandType.StoredProcedure,
+                (r) => CreateAlbum(
+                            (int)r["AlbumID"],
+                            (int)r["NumberOfPhotos"],
+                            (string)r["Caption"],
+                            (bool)r["IsPublic"]),
+                new SqlParameter("@IsPublic", isPublic),
+                new SqlParameter("@RowIndex", rowIndex+1),
+                new SqlParameter("@RowCount", rowCount));
+        }
+
+        public int CountAlbums(bool isPublic)
+        {
+            string cmdText = "CountAlbums";
+            return (int)ExecuteScalar(cmdText, CommandType.StoredProcedure, new SqlParameter("@IsPublic", isPublic));
+        }
 
         public void AddAlbum(string caption, bool isPublic)
         {

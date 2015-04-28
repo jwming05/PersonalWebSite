@@ -61,3 +61,23 @@ GO
 if exists (select * from dbo.sysobjects where id = object_id(N'[SiteContent]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 drop table [SiteContent]
 GO
+
+if exists (select * from dbo.sysobjects where id=object_id(N'[GetRandomPhotos]') and OBJECTPROPERTY(id, N'IsProcedure')=1)
+drop procedure [GetRandomPhotos]
+GO
+
+if exists (select * from dbo.sysobjects where id=object_id(N'[CountAlbums]') and OBJECTPROPERTY(id, N'IsProcedure')=1)
+drop procedure [CountAlbums]
+GO
+
+if exists (select * from dbo.sysobjects where id=object_id(N'[GetAlbums2]') and OBJECTPROPERTY(id, N'IsProcedure')=1)
+drop procedure [GetAlbums2]
+GO
+
+if exists (select * from dbo.sysobjects where id=object_id(N'[GetPhotos2]') and OBJECTPROPERTY(id, N'IsProcedure')=1)
+drop procedure [GetPhotos2]
+GO
+
+if exists (select * from dbo.sysobjects where id=object_id(N'[CountPhotos]') and OBJECTPROPERTY(id, N'IsProcedure')=1)
+drop procedure [CountPhotos]
+GO

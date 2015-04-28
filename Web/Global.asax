@@ -33,6 +33,13 @@
             var siteContentManagementService = new Pers.Domain.SiteContentManagementService(repository);
             HttpContext.Current.Items.Add(key, siteContentManagementService);
         }
+
+        key = "UploadDirectorySearcher";
+        if (!HttpContext.Current.Items.Contains(key))
+        {
+            var searcher = new UploadDirectorySearcher();
+            HttpContext.Current.Items.Add(key, searcher);
+        }
     }
 
 	SiteMapNode AppendQueryString(object o, SiteMapResolveEventArgs e) {

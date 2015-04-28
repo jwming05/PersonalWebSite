@@ -8,6 +8,10 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 
-public partial class Default_master : System.Web.UI.MasterPage {
-
+public partial class Default_master : System.Web.UI.MasterPage 
+{
+    public string YourNameHere
+    {
+        get { return Pers.Resource.Res.Your_Name_Here; }
+    }
 }

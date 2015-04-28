@@ -30,6 +30,16 @@ namespace Pers.Domain
             return bytes != null ? new MemoryStream(bytes) : null;
         }
 
+        public IList<IPhoto> GetPhotos(int pageIndex, int rowCountOfPage, int albumID)
+        {
+            return _repository.GetPhotos(pageIndex * rowCountOfPage, rowCountOfPage, albumID, _albumFilter.IsPublic);
+        }
+
+        public int CountPhotos(int albumID)
+        {
+            return _repository.CountPhotos(albumID, _albumFilter.IsPublic);
+        }
+
         public IList<IPhoto> GetRandomPhotos()
         {
             return _repository.GetRandomPhotos();
@@ -80,6 +90,16 @@ namespace Pers.Domain
         public IList<IAlbum> GetAlbums()
         {
             return _repository.GetAlbums(_albumFilter.IsPublic);
+        }
+
+        public IList<IAlbum> GetAlbums(int pageIndex, int rowCountOfPage)
+        {
+            return _repository.GetAlbums(pageIndex * rowCountOfPage, rowCountOfPage, _albumFilter.IsPublic);
+        }
+
+        public int CountAlbums()
+        {
+            return _repository.CountAlbums(_albumFilter.IsPublic);
         }
 
         public void AddAlbum(string caption, bool isPublic)

@@ -20,6 +20,11 @@ namespace Pers.Domain
         void RemovePhoto(int photoId);
 
         IList<IPhoto> GetRandomPhotos();
+
+        IList<IAlbum> GetAlbums(int pageIndex, int rowCountOfPage);
+        int CountAlbums();
+        IList<IPhoto> GetPhotos(int pageIndex, int rowCountOfPage, int albumID);
+        int CountPhotos(int albumID);
     }
 
 
