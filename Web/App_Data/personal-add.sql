@@ -213,6 +213,14 @@ AS
 RETURN
 GO
 
+CREATE PROCEDURE [dbo].[GetRandomPhotos]
+AS
+	SELECT TOP 1 [Photos].[PhotoID], [Photos].[AlbumID], [Photos].[Caption]
+	FROM [Photos] LEFT JOIN [Albums] 
+	ON [Photos].[AlbumID]=[Albums].[AlbumID]
+	WHERE [Albums].[IsPublic]=1 ORDER BY NEWID()
+RETURN
+GO
 
 SET QUOTED_IDENTIFIER OFF 
 GO

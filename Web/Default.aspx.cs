@@ -10,9 +10,10 @@ using System.Web.UI.HtmlControls;
 
 public partial class Default_aspx  : System.Web.UI.Page {
 
-    public void Randomize(object sender, EventArgs e) {
-        Random r = new Random();
-        FormView1.PageIndex = r.Next(FormView1.PageCount);
-	}
+    public void Randomize(object sender, EventArgs e)
+    {
+        //Random r = new Random();
+        //FormView1.PageIndex = r.Next(FormView1.PageCount);
+    }
 
 }

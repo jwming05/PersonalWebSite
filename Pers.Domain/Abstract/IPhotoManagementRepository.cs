@@ -11,11 +11,13 @@ namespace Pers.Domain
         void EditPhoto(string caption, int photoID);
         IList<IAlbum> GetAlbums(bool isPublic);
         byte[] GetFirstPhoto(int albumId, PhotoSize size, bool isPublic);
-        IList<IAlbum> GetNonEmptyAlbums();
+        //IList<IAlbum> GetNonEmptyAlbums();
         byte[] GetPhoto(int photoId, PhotoSize size, bool isPublic);
         IList<IPhoto> GetPhotos(int albumID, bool isPublic);
         void RemoveAlbum(int albumID);
         void RemovePhoto(int photoID);
+
+        IList<IPhoto> GetRandomPhotos();
     }
 
     //public interface IAlbumRepository

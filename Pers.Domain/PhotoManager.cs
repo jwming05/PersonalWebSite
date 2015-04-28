@@ -1,12 +1,5 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Web;
 namespace Pers.Domain
@@ -44,10 +37,16 @@ namespace Pers.Domain
             return service.GetPhotos(albumId);
         }
 
-        public static IList<IPhoto> GetPhotos()
+        //public static IList<IPhoto> GetPhotos()
+        //{
+        //    var service = GetService();
+        //    return GetPhotos(service.GetRandomAlbumID());
+        //}
+
+        public static IList<IPhoto> GetRandomPhotos()
         {
             var service = GetService();
-            return GetPhotos(service.GetRandomAlbumID());
+            return service.GetRandomPhotos(); // GetPhotos(service.GetRandomAlbumID());
         }
 
         public static void AddPhoto(int albumId, string caption, byte[] bytesOriginal)
@@ -94,11 +93,11 @@ namespace Pers.Domain
             service.EditAlbum(caption,isPublic,albumId);
         }
 
-        public static int GetRandomAlbumID()
-        {
-            var service = GetService();
-            return service.GetRandomAlbumID();
-        }
+        //public static int GetRandomAlbumID()
+        //{
+        //    var service = GetService();
+        //    return service.GetRandomAlbumID();
+        //}
 
         // Helper Functions
 
